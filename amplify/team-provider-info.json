@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "r3box4fab4037": {}
+      },
+      "api": {
+        "r3box": {}
+      },
+      "storage": {
+        "imagestorage": {}
       }
     }
   }
