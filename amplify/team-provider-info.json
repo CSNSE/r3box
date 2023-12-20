@@ -22,5 +22,23 @@
         "imagestorage": {}
       }
     }
+  },
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-r3box-dev-105252-authRole",
+      "UnauthRoleArn": "arn:aws:iam::667139048794:role/amplify-r3box-dev-105252-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::667139048794:role/amplify-r3box-dev-105252-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-r3box-dev-105252-deployment",
+      "UnauthRoleName": "amplify-r3box-dev-105252-unauthRole",
+      "StackName": "amplify-r3box-dev-105252",
+      "StackId": "arn:aws:cloudformation:us-east-1:667139048794:stack/amplify-r3box-dev-105252/acb01050-9e86-11ee-be88-0e4c8a6d5a9b",
+      "AmplifyAppId": "d2ybyitz30a9pb"
+    },
+    "categories": {
+      "auth": {
+        "r3box4fab4037": {}
+      }
+    }
   }
 }

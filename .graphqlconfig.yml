@@ -1,0 +1,15 @@
+projects:
+  r3box:
+    schemaPath: amplify/backend/api/r3box/build/schema.graphql
+    includes:
+      - src/graphql/**/*.js
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: javascript
+        generatedFileName: ''
+        docsFilePath: src/graphql
+        region: us-east-1
+        apiId: null
+        maxDepth: 2

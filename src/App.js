@@ -1,24 +1,28 @@
 import logo from "./logo.svg";
+import React, { Component } from 'react';
+import { withAuthenticator } from '@aws-amplify/ui-react';
 import "@aws-amplify/ui-react/styles.css";
-import {
-  withAuthenticator,
-  Button,
-  Heading,
-  Image,
-  View,
-  Card,
-} from "@aws-amplify/ui-react";
+import {RecipeCard} from "./ui-components";
+import {Routes, Route} from 'react-router-dom'
+import NewRecipe from './NewRecipe'
+//import EditRecipe from './EditRecipe';
 
-function App({ signOut }) {
+
+class App extends Component {
+
+  render() {
   return (
-    <View className="App">
-      <Card>
-        <Image src={logo} className="App-logo" alt="logo" />
-        <Heading level={1}>We now have Auth!</Heading>
-      </Card>
-      <Button onClick={signOut}>Sign Out</Button>
-    </View>
-  );
+    <div className="App"><header className="App-header">
+<Routes>
+<Route exact path='/' element={<div><p>hi</p><RecipeCard/></div>} />
+<Route exact path='/create' element= {<NewRecipe/>} />
+</Routes>
+</header></div>
+
+
+    );
+  
 }
 
+}
 export default withAuthenticator(App);
