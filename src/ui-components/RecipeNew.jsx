@@ -7,32 +7,50 @@
 /* eslint-disable */
 import * as React from "react";
 import { useState } from "react";
-import { getOverrideProps, useNavigateAction } from "./utils";
+import { getOverrideProps, useNavigateAction, processFile } from "./utils"; //MAH processFile
 import { generateClient } from "aws-amplify/api";
 import { createRecipe } from "../graphql/mutations";
-import { Button, Flex, Text, TextField, View } from "@aws-amplify/ui-react";
+import {
+  Button,
+  Flex,
+  Icon,
+  Text,
+  TextAreaField,
+  TextField,
+  View,
+} from "@aws-amplify/ui-react";
+import { Field } from "@aws-amplify/ui-react/internal";  //MAH add!
+import { StorageManager } from "@aws-amplify/ui-react-storage"; //MAH add!
 const client = generateClient();
-export default function CreateRecipe(props) {
+export default function RecipeNew(props) {
   const { nrcp, overrides, ...rest } = props;
   const [
     textFieldThreeEightSixTwoFourTwoNineValue,
     setTextFieldThreeEightSixTwoFourTwoNineValue,
   ] = useState("");
+  const [textAreaFieldValue, setTextAreaFieldValue] = useState("");
   const [
     textFieldThreeEightSixTwoFourThreeOneValue,
     setTextFieldThreeEightSixTwoFourThreeOneValue,
   ] = useState("");
-  const myIconOnClick = useNavigateAction({ type: "url", url: "/" });
+  //MAH setting image name!
+  const [
+    imageName,
+    setImageName,
+  ] = useState("");
+  const vectorOnClick = useNavigateAction({ type: "url", url: "\\" });
   const buttonOnClick = async () => {
     await client.graphql({
       query: createRecipe.replaceAll("__typename", ""),
       variables: {
         input: {
           name: textFieldThreeEightSixTwoFourTwoNineValue,
-          description: textFieldThreeEightSixTwoFourThreeOneValue,
+          description: textAreaFieldValue,
+          image: imageName  //MAH image name!
         },
       },
     });
+    console.log("entered rhino!");
   };
   const buttonOnMouseOut = useNavigateAction({ type: "url", url: "/" });
   return (
@@ -46,7 +64,7 @@ export default function CreateRecipe(props) {
       position="relative"
       padding="0px 0px 0px 0px"
       backgroundColor="rgba(255,255,255,1)"
-      {...getOverrideProps(overrides, "CreateRecipe")}
+      {...getOverrideProps(overrides, "RecipeNew")}
       {...rest}
     >
       <Flex
@@ -78,11 +96,42 @@ export default function CreateRecipe(props) {
           <View
             width="24px"
             height="24px"
-            onClick={() => {
-              myIconOnClick();
-            }}
-            {...getOverrideProps(overrides, "MyIcon")}
-          ></View>
+            display="block"
+            gap="unset"
+            alignItems="unset"
+            justifyContent="unset"
+            overflow="hidden"
+            shrink="0"
+            position="relative"
+            padding="0px 0px 0px 0px"
+            {...getOverrideProps(overrides, "xIcon")}
+          >
+            <Icon
+              width="14px"
+              height="14px"
+              viewBox={{ minX: 0, minY: 0, width: 14, height: 14 }}
+              paths={[
+                {
+                  d: "M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z",
+                  fill: "rgba(92,102,112,1)",
+                  fillRule: "nonzero",
+                },
+              ]}
+              display="block"
+              gap="unset"
+              alignItems="unset"
+              justifyContent="unset"
+              position="absolute"
+              top="20.83%"
+              bottom="20.83%"
+              left="20.83%"
+              right="20.83%"
+              onClick={() => {
+                vectorOnClick();
+              }}
+              {...getOverrideProps(overrides, "Vector")}
+            ></Icon>
+          </View>
           <Text
             fontFamily="Inter"
             fontSize="16px"
@@ -101,8 +150,8 @@ export default function CreateRecipe(props) {
             position="relative"
             padding="0px 0px 0px 0px"
             whiteSpace="pre-wrap"
-            children="Add Recipie"
-            {...getOverrideProps(overrides, "Add Recipie")}
+            children="Add Recipe"
+            {...getOverrideProps(overrides, "Add Recipe")}
           ></Text>
         </Flex>
         <Flex
@@ -134,113 +183,46 @@ export default function CreateRecipe(props) {
             }}
             {...getOverrideProps(overrides, "TextField3862429")}
           ></TextField>
-          <TextField
-            width="unset"
-            height="unset"
-            label="Image"
-            placeholder="Image1"
+          {/* <Field> REPLACES ORIGINAL Image TextField  //MAH */}
+            <Field
+
+            label={"Image"}
+            isRequired={false}
+            isReadOnly={false}
+            >
+            <StorageManager
+            onUploadSuccess={({ key }) => {
+              setImageName(
+                key
+              );
+            }}
+            processFile={processFile}
+            accessLevel={"public"}
+            acceptedFileTypes={[]}
+            isResumable={false}
+            showThumbnails={true}
+            maxFileCount={1}
+            {...getOverrideProps(overrides, "image")}
+            ></StorageManager>
+            </Field>
+          <TextAreaField
+            width="272px"
+            height="406px"
+            label="Directions"
+            placeholder="Your ingredients & steps"
+            justifyContent="flex-start"
+            alignItems="center"
             shrink="0"
-            alignSelf="stretch"
             size="default"
             isDisabled={false}
             labelHidden={false}
             variation="default"
-            value={textFieldThreeEightSixTwoFourThreeOneValue}
+            value={textAreaFieldValue}
             onChange={(event) => {
-              setTextFieldThreeEightSixTwoFourThreeOneValue(event.target.value);
+              setTextAreaFieldValue(event.target.value);
             }}
-            {...getOverrideProps(overrides, "TextField3862431")}
-          ></TextField>
-          <Flex
-            gap="8px"
-            direction="column"
-            width="272px"
-            height="406px"
-            justifyContent="center"
-            alignItems="flex-start"
-            shrink="0"
-            position="relative"
-            padding="0px 0px 0px 0px"
             {...getOverrideProps(overrides, "TextAreaField")}
-          >
-            <Text
-              fontFamily="Inter"
-              fontSize="16px"
-              fontWeight="400"
-              color="rgba(48,64,80,1)"
-              lineHeight="24px"
-              textAlign="left"
-              display="block"
-              direction="column"
-              justifyContent="unset"
-              width="unset"
-              height="unset"
-              gap="unset"
-              alignItems="unset"
-              shrink="0"
-              alignSelf="stretch"
-              position="relative"
-              padding="0px 0px 0px 0px"
-              whiteSpace="pre-wrap"
-              children="Directions"
-              {...getOverrideProps(overrides, "label")}
-            ></Text>
-            <Flex
-              gap="0"
-              direction="column"
-              width="unset"
-              height="375px"
-              justifyContent="flex-start"
-              alignItems="flex-start"
-              shrink="0"
-              alignSelf="stretch"
-              position="relative"
-              padding="0px 0px 0px 0px"
-              {...getOverrideProps(overrides, "InputGroup")}
-            >
-              <Flex
-                gap="10px"
-                direction="row"
-                width="unset"
-                height="unset"
-                justifyContent="flex-start"
-                alignItems="flex-start"
-                grow="1"
-                shrink="1"
-                basis="0"
-                alignSelf="stretch"
-                position="relative"
-                border="1px SOLID rgba(174,179,183,1)"
-                borderRadius="5px"
-                padding="8px 16px 8px 16px"
-                {...getOverrideProps(overrides, "Input")}
-              >
-                <Text
-                  fontFamily="Inter"
-                  fontSize="16px"
-                  fontWeight="400"
-                  color="rgba(128,128,128,1)"
-                  lineHeight="24px"
-                  textAlign="left"
-                  display="block"
-                  direction="column"
-                  justifyContent="unset"
-                  width="unset"
-                  height="unset"
-                  gap="unset"
-                  alignItems="unset"
-                  grow="1"
-                  shrink="1"
-                  basis="0"
-                  position="relative"
-                  padding="0px 0px 0px 0px"
-                  whiteSpace="pre-wrap"
-                  children="Placeholder"
-                  {...getOverrideProps(overrides, "placeholder")}
-                ></Text>
-              </Flex>
-            </Flex>
-          </Flex>
+          ></TextAreaField>
         </Flex>
         <Button
           width="71px"

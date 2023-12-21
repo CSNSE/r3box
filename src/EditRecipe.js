@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { EditRecipe } from "./ui-components";
+import { Nav, MyEditComponent } from "./ui-components";
 import "./App.css";
 
 class EditRecipe extends Component {
@@ -11,8 +11,8 @@ class EditRecipe extends Component {
   function Put() {
     return (
       <div><header className="App-header">
-        {/* <Nav/> */}
-        <EditRecipe />
+        <Nav/>
+        <MyEditComponent />
         </header></div>
       );
     }

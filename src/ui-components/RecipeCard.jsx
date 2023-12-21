@@ -6,11 +6,34 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { getOverrideProps } from "./utils";
+import { getOverrideProps, useNavigateAction } from "./utils";
+import { generateClient } from "aws-amplify/api";
+import { deleteRecipe } from "../graphql/mutations";
 import { Flex, Image, Text, View } from "@aws-amplify/ui-react";
 import MyIcon from "./MyIcon";
+const client = generateClient();
 export default function RecipeCard(props) {
-  const { overrides, ...rest } = props;
+  const { cardR, overrides, ...rest } = props;
+  const imageOnClick = useNavigateAction({
+    type: "url",
+    url: `${"/edit/"}${cardR?.id}`,
+  });
+  const trashOnClick = async () => {
+    await client.graphql({
+      query: deleteRecipe.replaceAll("__typename", ""),
+      variables: {
+        input: {
+          id: cardR?.id,
+        },
+      },
+    });
+    trashOnMouseUp();
+  };
+  const trashOnMouseUp = useNavigateAction({ type: "url", url: "/" });
+  const pencilOnClick = useNavigateAction({
+    type: "url",
+    url: `${"/edit/"}${cardR?.id}`,
+  });
   return (
     <Flex
       gap="0"
@@ -36,6 +59,10 @@ export default function RecipeCard(props) {
         position="relative"
         padding="0px 0px 0px 0px"
         objectFit="cover"
+        src={cardR?.image}
+        onClick={() => {
+          imageOnClick();
+        }}
         {...getOverrideProps(overrides, "image")}
       ></Image>
       <Flex
@@ -82,7 +109,7 @@ export default function RecipeCard(props) {
             position="relative"
             padding="0px 0px 0px 0px"
             whiteSpace="pre-wrap"
-            children="Chocolate Chip Cookies"
+            children={cardR?.name}
             {...getOverrideProps(overrides, "Chocolate Chip Cookies")}
           ></Text>
           <Text
@@ -105,13 +132,13 @@ export default function RecipeCard(props) {
             position="relative"
             padding="0px 0px 0px 0px"
             whiteSpace="pre-wrap"
-            children="1. Mix the Flour and Sugar"
+            children={cardR?.description}
             {...getOverrideProps(overrides, "1. Mix the Flour and Sugar")}
           ></Text>
         </Flex>
       </Flex>
       <View
-        width="304px"
+        width="295px"
         height="36px"
         display="block"
         gap="unset"
@@ -123,36 +150,73 @@ export default function RecipeCard(props) {
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "CardFooterFrame")}
       >
-        <MyIcon
+        <View
           width="24px"
           height="24px"
           display="block"
           gap="unset"
           alignItems="unset"
           justifyContent="unset"
-          overflow="hidden"
-          position="absolute"
-          top="6px"
-          left="17px"
-          padding="0px 0px 0px 0px"
-          type="edit"
-          {...getOverrideProps(overrides, "MyIcon38745890")}
-        ></MyIcon>
-        <MyIcon
-          width="24px"
-          height="24px"
-          display="block"
-          gap="unset"
-          alignItems="unset"
-          justifyContent="unset"
-          overflow="hidden"
           position="absolute"
           top="6px"
           left="254px"
           padding="0px 0px 0px 0px"
-          type="delete"
-          {...getOverrideProps(overrides, "MyIcon38746010")}
-        ></MyIcon>
+          onClick={() => {
+            trashOnClick();
+          }}
+          // onMouseUp={() => {
+          //   trashOnMouseUp();
+          // }}
+          {...getOverrideProps(overrides, "trash")}
+        >
+          <MyIcon
+            width="24px"
+            height="24px"
+            display="block"
+            gap="unset"
+            alignItems="unset"
+            justifyContent="unset"
+            overflow="hidden"
+            position="absolute"
+            top="0px"
+            left="0px"
+            padding="0px 0px 0px 0px"
+            type="delete"
+            {...getOverrideProps(overrides, "MyIcon38746010")}
+          ></MyIcon>
+        </View>
+        <View
+          width="24px"
+          height="24px"
+          display="block"
+          gap="unset"
+          alignItems="unset"
+          justifyContent="unset"
+          position="absolute"
+          top="6px"
+          left="17px"
+          padding="0px 0px 0px 0px"
+          onClick={() => {
+            pencilOnClick();
+          }}
+          {...getOverrideProps(overrides, "pencil")}
+        >
+          <MyIcon
+            width="24px"
+            height="24px"
+            display="block"
+            gap="unset"
+            alignItems="unset"
+            justifyContent="unset"
+            overflow="hidden"
+            position="absolute"
+            top="0px"
+            left="0px"
+            padding="0px 0px 0px 0px"
+            type="edit"
+            {...getOverrideProps(overrides, "MyIcon38745890")}
+          ></MyIcon>
+        </View>
       </View>
     </Flex>
   );

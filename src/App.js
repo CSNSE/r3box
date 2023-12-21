@@ -1,8 +1,7 @@
-import logo from "./logo.svg";
 import React, { Component } from 'react';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import "@aws-amplify/ui-react/styles.css";
-import {RecipeCard} from "./ui-components";
+import {Nav, RecipeCardCollection, RecipeCard} from "./ui-components";
 import {Routes, Route} from 'react-router-dom'
 import NewRecipe from './NewRecipe'
 //import EditRecipe from './EditRecipe';
@@ -14,8 +13,8 @@ class App extends Component {
   return (
     <div className="App"><header className="App-header">
 <Routes>
-<Route exact path='/' element={<div><p>hi</p><RecipeCard/></div>} />
-<Route exact path='/create' element= {<NewRecipe/>} />
+<Route exact path='/' element={<div><Nav/><RecipeCardCollection/></div>} />
+<Route exact path='/new' element= {<NewRecipe/>} />
 </Routes>
 </header></div>
 

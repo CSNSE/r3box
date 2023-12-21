@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { CreateRecipe } from "./ui-components";
+import { RecipeNew, Nav } from "./ui-components";
 import "./App.css";
 
 class NewRecipe extends Component {
@@ -11,8 +11,8 @@ class NewRecipe extends Component {
   function Put() {
     return (
       <div><header className="App-header">
-        {/* <Nav/> */}
-        <CreateRecipe style={{ textAlign: "left"}} />
+        <Nav/>
+        <RecipeNew style={{ textAlign: "left"}} />
         </header></div>
       );
     }

@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { ButtonProps, FlexProps, TextFieldProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
+import { ButtonProps, FlexProps, IconProps, TextAreaFieldProps, TextFieldProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
 } | null;
@@ -17,25 +17,22 @@ export declare type Variant = {
     overrides: EscapeHatchProps;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type CreateRecipeOverridesProps = {
-    CreateRecipe?: PrimitiveOverrideProps<FlexProps>;
+export declare type RecipeNewOverridesProps = {
+    RecipeNew?: PrimitiveOverrideProps<FlexProps>;
     Content?: PrimitiveOverrideProps<FlexProps>;
     "Edit Profile"?: PrimitiveOverrideProps<FlexProps>;
-    MyIcon?: PrimitiveOverrideProps<ViewProps>;
-    "Add Recipie"?: PrimitiveOverrideProps<TextProps>;
+    xIcon?: PrimitiveOverrideProps<ViewProps>;
+    Vector?: PrimitiveOverrideProps<IconProps>;
+    "Add Recipe"?: PrimitiveOverrideProps<TextProps>;
     Forms?: PrimitiveOverrideProps<FlexProps>;
     TextField3862429?: PrimitiveOverrideProps<TextFieldProps>;
     TextField3862431?: PrimitiveOverrideProps<TextFieldProps>;
-    TextAreaField?: PrimitiveOverrideProps<FlexProps>;
-    label?: PrimitiveOverrideProps<TextProps>;
-    InputGroup?: PrimitiveOverrideProps<FlexProps>;
-    Input?: PrimitiveOverrideProps<FlexProps>;
-    placeholder?: PrimitiveOverrideProps<TextProps>;
+    TextAreaField?: PrimitiveOverrideProps<TextAreaFieldProps>;
     Button?: PrimitiveOverrideProps<ButtonProps>;
 } & EscapeHatchProps;
-export declare type CreateRecipeProps = React.PropsWithChildren<Partial<FlexProps> & {
+export declare type RecipeNewProps = React.PropsWithChildren<Partial<FlexProps> & {
     nrcp?: any;
 } & {
-    overrides?: CreateRecipeOverridesProps | undefined | null;
+    overrides?: RecipeNewOverridesProps | undefined | null;
 }>;
-export default function CreateRecipe(props: CreateRecipeProps): React.ReactElement;
+export default function RecipeNew(props: RecipeNewProps): React.ReactElement;

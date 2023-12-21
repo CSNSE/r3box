@@ -26,10 +26,14 @@ export declare type RecipeCardOverridesProps = {
     "Chocolate Chip Cookies"?: PrimitiveOverrideProps<TextProps>;
     "1. Mix the Flour and Sugar"?: PrimitiveOverrideProps<TextProps>;
     CardFooterFrame?: PrimitiveOverrideProps<ViewProps>;
-    MyIcon38745890?: MyIconProps;
+    trash?: PrimitiveOverrideProps<ViewProps>;
     MyIcon38746010?: MyIconProps;
+    pencil?: PrimitiveOverrideProps<ViewProps>;
+    MyIcon38745890?: MyIconProps;
 } & EscapeHatchProps;
 export declare type RecipeCardProps = React.PropsWithChildren<Partial<FlexProps> & {
+    cardR?: any;
+} & {
     overrides?: RecipeCardOverridesProps | undefined | null;
 }>;
 export default function RecipeCard(props: RecipeCardProps): React.ReactElement;
