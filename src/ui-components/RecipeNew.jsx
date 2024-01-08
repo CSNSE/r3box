@@ -154,11 +154,27 @@ export default function RecipeNew(props) {
             {...getOverrideProps(overrides, "Add Recipe")}
           ></Text>
         </Flex>
+        <Button
+          width="71px"
+          height="40px"
+          shrink="0"
+          size="default"
+          isDisabled={false}
+          variation="primary"
+          children="Save"
+          onClick={() => {
+            buttonOnClick();
+          }}
+          onMouseOut={() => {
+            buttonOnMouseOut();
+          }}
+          {...getOverrideProps(overrides, "Button")}
+        ></Button>
         <Flex
           gap="16px"
           direction="column"
           width="272px"
-          height="582px"
+          height="364px"
           justifyContent="flex-start"
           alignItems="flex-start"
           shrink="0"
@@ -207,7 +223,7 @@ export default function RecipeNew(props) {
             </Field>
           <TextAreaField
             width="272px"
-            height="406px"
+            height="188px"
             label="Directions"
             placeholder="Your ingredients & steps"
             justifyContent="flex-start"
@@ -224,22 +240,6 @@ export default function RecipeNew(props) {
             {...getOverrideProps(overrides, "TextAreaField")}
           ></TextAreaField>
         </Flex>
-        <Button
-          width="71px"
-          height="40px"
-          shrink="0"
-          size="default"
-          isDisabled={false}
-          variation="primary"
-          children="Save"
-          onClick={() => {
-            buttonOnClick();
-          }}
-          onMouseOut={() => {
-            buttonOnMouseOut();
-          }}
-          {...getOverrideProps(overrides, "Button")}
-        ></Button>
       </Flex>
     </Flex>
   );

@@ -6,6 +6,7 @@
 
 /* eslint-disable */
 import * as React from "react";
+import { getOverrideProps } from "./utils";
 import {
   Grid,
   Button,
@@ -254,11 +255,21 @@ export default function RecipeEdit(props) {
             {...getOverrideProps(overrides, "Edit Recipe")}
           ></Text>
         </Flex>
+        <Button
+          width="71px"
+          height="40px"
+          shrink="0"
+          size="default"
+          isDisabled={false}
+          variation="primary"
+          children="Save"
+          {...getOverrideProps(overrides, "Button")}
+        ></Button>
         <Flex
           gap="16px"
           direction="column"
           width="272px"
-          height="582px"
+          height="364px"
           justifyContent="flex-start"
           alignItems="flex-start"
           shrink="0"
@@ -325,7 +336,7 @@ export default function RecipeEdit(props) {
               </Field>
           <TextAreaField
             width="272px"
-            height="406px"
+            height="188px"
             label="Directions"
             placeholder="db_directions"
             justifyContent="flex-start"

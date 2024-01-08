@@ -24,11 +24,11 @@ export declare type RecipeNewOverridesProps = {
     xIcon?: PrimitiveOverrideProps<ViewProps>;
     Vector?: PrimitiveOverrideProps<IconProps>;
     "Add Recipe"?: PrimitiveOverrideProps<TextProps>;
+    Button?: PrimitiveOverrideProps<ButtonProps>;
     Forms?: PrimitiveOverrideProps<FlexProps>;
     TextField3862429?: PrimitiveOverrideProps<TextFieldProps>;
     TextField3862431?: PrimitiveOverrideProps<TextFieldProps>;
     TextAreaField?: PrimitiveOverrideProps<TextAreaFieldProps>;
-    Button?: PrimitiveOverrideProps<ButtonProps>;
 } & EscapeHatchProps;
 export declare type RecipeNewProps = React.PropsWithChildren<Partial<FlexProps> & {
     nrcp?: any;
