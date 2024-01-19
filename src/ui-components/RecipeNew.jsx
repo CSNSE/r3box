@@ -39,21 +39,21 @@ export default function RecipeNew(props) {
     setImageName,
   ] = useState("");
   const vectorOnClick = useNavigateAction({ type: "url", url: "\\" });
-  const buttonOnClick = async () => {
+  const buttonOnMouseUp = useNavigateAction({ type: "url", url: "/" });
+  const buttonOnMouseDown = async () => {
     await client.graphql({
       query: createRecipe.replaceAll("__typename", ""),
       variables: {
         input: {
           name: textFieldThreeEightSixTwoFourTwoNineValue,
-          description: textAreaFieldValue,
+          description: textFieldThreeEightSixTwoFourThreeOneValue,
           image: imageName  //MAH image name!
         },
       },
     });
-    console.log("entered rhino!");
+
   };
-  const buttonOnMouseOut = useNavigateAction({ type: "url", url: "/" });
-  return (
+    return (
     <Flex
       gap="16px"
       direction="column"
@@ -154,11 +154,31 @@ export default function RecipeNew(props) {
             {...getOverrideProps(overrides, "Add Recipe")}
           ></Text>
         </Flex>
+        <Button
+          width="71px"
+          height="40px"
+          shrink="0"
+          size="default"
+          isDisabled={false}
+          variation="primary"
+          children="Save"
+          onClick={() => {
+            buttonOnClick();
+          }}
+          onMouseDown={() => {
+            buttonOnMouseDown();
+          }}
+        onMouseUp={() => {
+          buttonOnMouseUp();
+        }}
+        {...getOverrideProps(overrides, "Button")}
+      ></Button>
+
         <Flex
           gap="16px"
           direction="column"
           width="272px"
-          height="582px"
+          height="364px"
           justifyContent="flex-start"
           alignItems="flex-start"
           shrink="0"
@@ -207,7 +227,7 @@ export default function RecipeNew(props) {
             </Field>
           <TextAreaField
             width="272px"
-            height="406px"
+            height="188px"
             label="Directions"
             placeholder="Your ingredients & steps"
             justifyContent="flex-start"
@@ -217,29 +237,13 @@ export default function RecipeNew(props) {
             isDisabled={false}
             labelHidden={false}
             variation="default"
-            value={textAreaFieldValue}
+            value={textFieldThreeEightSixTwoFourThreeOneValue}
             onChange={(event) => {
-              setTextAreaFieldValue(event.target.value);
+              setTextFieldThreeEightSixTwoFourThreeOneValue(event.target.value);
             }}
             {...getOverrideProps(overrides, "TextAreaField")}
           ></TextAreaField>
         </Flex>
-        <Button
-          width="71px"
-          height="40px"
-          shrink="0"
-          size="default"
-          isDisabled={false}
-          variation="primary"
-          children="Save"
-          onClick={() => {
-            buttonOnClick();
-          }}
-          onMouseOut={() => {
-            buttonOnMouseOut();
-          }}
-          {...getOverrideProps(overrides, "Button")}
-        ></Button>
       </Flex>
     </Flex>
   );
