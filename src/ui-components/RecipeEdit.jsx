@@ -6,7 +6,6 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { getOverrideProps } from "./utils";
 import {
   Grid,
   Button,
