@@ -56,6 +56,7 @@ export default function RecipeEdit(props) {
     setImage(cleanValues.image);
     setErrors({});
   };
+
   const [recipeRecord, setRecipeRecord] = React.useState(recipeModelProp);
   React.useEffect(() => {
     const queryData = async () => {
@@ -94,6 +95,7 @@ export default function RecipeEdit(props) {
     setErrors((errors) => ({ ...errors, [fieldName]: validationResponse }));
     return validationResponse;
   };
+  const buttonOnMouseUp = useNavigateAction({ type: "url", url: "/" });
   return (
     <Grid
       as="form"
@@ -263,6 +265,10 @@ export default function RecipeEdit(props) {
           variation="primary"
           children="Save"
           {...getOverrideProps(overrides, "Button")}
+          onMouseUp={() => {
+            buttonOnMouseUp();
+          }}
+          {...getOverrideProps(overrides, "Button")}
         ></Button>
         <Flex
           gap="16px"
@@ -370,16 +376,7 @@ export default function RecipeEdit(props) {
             {...getOverrideProps(overrides, "description")}
           ></TextAreaField>
         </Flex>
-        <Button
-            children="Submit"
-            type="submit"
-            variation="primary"
-            isDisabled={
-              !(idProp || recipeModelProp) ||
-              Object.values(errors).some((e) => e?.hasError)
-            }
-            {...getOverrideProps(overrides, "SubmitButton")}
-          ></Button>
+
       </Flex>
     </Flex>
     </Grid>
