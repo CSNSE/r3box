@@ -16,7 +16,7 @@ import {
   TextField,
   View,
 } from "@aws-amplify/ui-react";
-import { fetchByPath, getOverrideProps, useNavigateAction, validateField, processFile } from "./utils"; //MAH processFile
+import { fetchByPath, getOverrideProps, validateField, processFile } from "./utils"; //MAH processFile
 import { generateClient } from "aws-amplify/api";
 import { getRecipe } from "../graphql/queries";
 import { updateRecipe } from "../graphql/mutations";
@@ -46,7 +46,7 @@ export default function RecipeEdit(props) {
     initialValues.description
   );
   const [image, setImage] = React.useState(initialValues.image);
-   const [errors, setErrors] = React.useState({});
+  const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = recipeRecord
       ? { ...initialValues, ...recipeRecord }
@@ -56,33 +56,7 @@ export default function RecipeEdit(props) {
     setImage(cleanValues.image);
     setErrors({});
   };
-  const [
-    textFieldThreeEightNineThreeEightNineThreeValue,
-    SetTextFieldThreeEightNineThreeEightNineThreeValue,
-  ] = useState("");
-  const [
-    textFieldThreeNineFourFiveEightNineValue,
-    setTextFieldThreeNineFourFiveEightNineValue,
-  ] = useState("");
-  const [
-    textFieldThreeNineFourFiveEightEightValue,
-    setTextFieldThreeNineFourFiveEightEightValue,
-  ] = useState("");
   const [recipeRecord, setRecipeRecord] = React.useState(recipeModelProp);
-  const buttonOnMouseUp = useNavigateAction({ type: "url", url: "/" });
-  const buttonOnMouseDown = async () => {
-    await client.graphql({
-      query: getRecipe.replaceAll("__typename", ""),
-      variables: {
-        input: {
-          name: textFieldThreeEightNineThreeEightNineThreeValue,
-          description: TextAreaField,
-          image: imageName  //MAH image name!
-        },
-      },
-    });
-
-  };
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
@@ -280,6 +254,16 @@ export default function RecipeEdit(props) {
             {...getOverrideProps(overrides, "Edit Recipe")}
           ></Text>
         </Flex>
+        <Button
+          width="71px"
+          height="40px"
+          shrink="0"
+          size="default"
+          isDisabled={false}
+          variation="primary"
+          children="Save"
+          {...getOverrideProps(overrides, "Button")}
+        ></Button>
         <Flex
           gap="16px"
           direction="column"
@@ -292,25 +276,6 @@ export default function RecipeEdit(props) {
           padding="0px 0px 0px 0px"
           {...getOverrideProps(overrides, "Forms")}
         >
-        <Button
-          width="71px"
-          height="40px"
-          shrink="0"
-          size="default"
-          isDisabled={false}
-          variation="primary"
-          children="Save"
-          onClick={() => {
-            buttonOnClick();
-          }}
-          onMouseDown={() => {
-            buttonOnMouseDown();
-          }}
-          onMouseUp={() => {
-            buttonOnMouseUp();
-          }}
-          {...getOverrideProps(overrides, "Button")}
-        ></Button>
           <TextField
             width="unset"
             height="unset"
@@ -405,7 +370,16 @@ export default function RecipeEdit(props) {
             {...getOverrideProps(overrides, "description")}
           ></TextAreaField>
         </Flex>
-
+        <Button
+            children="Submit"
+            type="submit"
+            variation="primary"
+            isDisabled={
+              !(idProp || recipeModelProp) ||
+              Object.values(errors).some((e) => e?.hasError)
+            }
+            {...getOverrideProps(overrides, "SubmitButton")}
+          ></Button>
       </Flex>
     </Flex>
     </Grid>
