@@ -95,7 +95,20 @@ export default function RecipeEdit(props) {
     setErrors((errors) => ({ ...errors, [fieldName]: validationResponse }));
     return validationResponse;
   };
+  /*
   const buttonOnMouseUp = useNavigateAction({ type: "url", url: "/" });
+  const buttonOnMouseDown = async () => {
+    await client.graphql({
+      query: createRecipe.replaceAll("__typename", ""),
+      variables: {
+        input: {
+          name: textFieldThreeEightNineThreeEightNineThreeValue,
+          description: textFieldArea,
+          image: imageName  //MAH image name!
+        },
+      },
+    });
+*/
   return (
     <Grid
       as="form"
@@ -264,11 +277,16 @@ export default function RecipeEdit(props) {
           isDisabled={false}
           variation="primary"
           children="Save"
+          /*
           {...getOverrideProps(overrides, "Button")}
           onMouseUp={() => {
             buttonOnMouseUp();
           }}
           {...getOverrideProps(overrides, "Button")}
+          onMouseDown={() => {
+            buttonOnMouseDown();
+          }}
+          */
         ></Button>
         <Flex
           gap="16px"
@@ -381,4 +399,4 @@ export default function RecipeEdit(props) {
     </Flex>
     </Grid>
   );
-}
+}//}
