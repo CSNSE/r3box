@@ -16,7 +16,7 @@ import {
   TextField,
   View,
 } from "@aws-amplify/ui-react";
-import { fetchByPath, getOverrideProps, validateField, processFile } from "./utils"; //MAH processFile
+import { fetchByPath, getOverrideProps, validateField, processFile,useNavigateAction } from "./utils"; //MAH processFile
 import { generateClient } from "aws-amplify/api";
 import { getRecipe } from "../graphql/queries";
 import { updateRecipe } from "../graphql/mutations";
@@ -42,6 +42,7 @@ export default function RecipeEdit(props) {
     image: "",
   };
   const [name, setName] = React.useState(initialValues.name);
+  const buttonOnMouseUp = useNavigateAction({ type: "url", url: "/" });
   const [description, setDescription] = React.useState(
     initialValues.description
   );
@@ -277,8 +278,12 @@ export default function RecipeEdit(props) {
           isDisabled={false}
           variation="primary"
           children="Save"
-          /*
+          onMouseUp={() => {
+            buttonOnMouseUp();
+          }}
+          
           {...getOverrideProps(overrides, "Button")}
+          /*
           onMouseUp={() => {
             buttonOnMouseUp();
           }}
