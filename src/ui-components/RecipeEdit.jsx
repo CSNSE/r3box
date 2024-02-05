@@ -6,8 +6,11 @@
 
 /* eslint-disable */
 import * as React from "react";
+import { useState } from "react";
+import { getOverrideProps, useNavigateAction } from "./utils";
+import { generateClient } from "aws-amplify/api";
+import { updateRecipe } from "../graphql/mutations";
 import {
-  Grid,
   Button,
   Flex,
   Icon,
@@ -16,163 +19,33 @@ import {
   TextField,
   View,
 } from "@aws-amplify/ui-react";
-import { fetchByPath, getOverrideProps, validateField, processFile,useNavigateAction } from "./utils"; //MAH processFile
-import { generateClient } from "aws-amplify/api";
-import { getRecipe } from "../graphql/queries";
-import { updateRecipe } from "../graphql/mutations";
-import { Field } from "@aws-amplify/ui-react/internal";  //MAH add!
-import { StorageManager } from "@aws-amplify/ui-react-storage"; //MAH add!
 const client = generateClient();
 export default function RecipeEdit(props) {
-  const {
-    idProp, //remove id:
-    recipe: recipeModelProp,
-    onSuccess,
-    onError,
-    onSubmit,
-    onValidate,
-    onChange,
-    overrides,
-    ...rest
-  } = props;
-  console.log("thing update got it: " + {idProp}); //added
-  const initialValues = {
-    name: "",
-    description: "",
-    image: "",
-  };
-  const [name, setName] = React.useState(initialValues.name);
-  const buttonOnMouseUp = useNavigateAction({ type: "url", url: "/" });
-  const [description, setDescription] = React.useState(
-    initialValues.description
-  );
-  const [image, setImage] = React.useState(initialValues.image);
-  const [errors, setErrors] = React.useState({});
-  const resetStateValues = () => {
-    const cleanValues = recipeRecord
-      ? { ...initialValues, ...recipeRecord }
-      : initialValues;
-    setName(cleanValues.name);
-    setDescription(cleanValues.description);
-    setImage(cleanValues.image);
-    setErrors({});
-  };
-
-  const [recipeRecord, setRecipeRecord] = React.useState(recipeModelProp);
-  React.useEffect(() => {
-    const queryData = async () => {
-      const record = idProp
-        ? (
-            await client.graphql({
-              query: getRecipe.replaceAll("__typename", ""),
-              variables: { id: idProp },
-            })
-          )?.data?.getRecipe
-        : recipeModelProp;
-      setRecipeRecord(record);
-    };
-    queryData();
-  }, [idProp, recipeModelProp]);
-  React.useEffect(resetStateValues, [recipeRecord]);
-  const validations = {
-    name: [{ type: "Required" }],
-    description: [],
-    image: [],
-  };
-  const runValidationTasks = async (
-    fieldName,
-    currentValue,
-    getDisplayValue
-  ) => {
-    const value =
-      currentValue && getDisplayValue
-        ? getDisplayValue(currentValue)
-        : currentValue;
-    let validationResponse = validateField(value, validations[fieldName]);
-    const customValidator = fetchByPath(onValidate, fieldName);
-    if (customValidator) {
-      validationResponse = await customValidator(value, validationResponse);
-    }
-    setErrors((errors) => ({ ...errors, [fieldName]: validationResponse }));
-    return validationResponse;
-  };
-  /*
+  const { rEdit, overrides, ...rest } = props;
+  const [
+    textFieldThreeEightNineThreeEightNineThreeValue,
+    setTextFieldThreeEightNineThreeEightNineThreeValue,
+  ] = useState("");
+  const [textAreaFieldValue, setTextAreaFieldValue] = useState("");
+  const [
+    textFieldThreeEightNineThreeEightNineFourValue,
+    setTextFieldThreeEightNineThreeEightNineFourValue,
+  ] = useState("");
   const buttonOnMouseUp = useNavigateAction({ type: "url", url: "/" });
   const buttonOnMouseDown = async () => {
     await client.graphql({
-      query: createRecipe.replaceAll("__typename", ""),
+      query: updateRecipe.replaceAll("__typename", ""),
       variables: {
         input: {
           name: textFieldThreeEightNineThreeEightNineThreeValue,
-          description: textFieldArea,
-          image: imageName  //MAH image name!
+          description: textAreaFieldValue,
+          image: textFieldThreeEightNineThreeEightNineFourValue,
+          id: rEdit?.id,
         },
       },
     });
-*/
+  };
   return (
-    <Grid
-      as="form"
-      rowGap="15px"
-      columnGap="15px"
-      padding="20px"
-      onSubmit={async (event) => {
-        event.preventDefault();
-        let modelFields = {
-          name,
-          description: description ?? null,
-          image: image ?? null,
-        };
-        const validationResponses = await Promise.all(
-          Object.keys(validations).reduce((promises, fieldName) => {
-            if (Array.isArray(modelFields[fieldName])) {
-              promises.push(
-                ...modelFields[fieldName].map((item) =>
-                  runValidationTasks(fieldName, item)
-                )
-              );
-              return promises;
-            }
-            promises.push(
-              runValidationTasks(fieldName, modelFields[fieldName])
-            );
-            return promises;
-          }, [])
-        );
-        if (validationResponses.some((r) => r.hasError)) {
-          return;
-        }
-        if (onSubmit) {
-          modelFields = onSubmit(modelFields);
-        }
-        try {
-          Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value === "") {
-              modelFields[key] = null;
-            }
-          });
-          await client.graphql({
-            query: updateRecipe.replaceAll("__typename", ""),
-            variables: {
-              input: {
-                id: recipeRecord.id,
-                ...modelFields,
-              },
-            },
-          });
-          if (onSuccess) {
-            onSuccess(modelFields);
-          }
-        } catch (err) {
-          if (onError) {
-            const messages = err.errors.map((e) => e.message).join("\n");
-            onError(modelFields, messages);
-          }
-        }
-      }}
-      {...getOverrideProps(overrides, "RecipeUpdateForm")}
-      {...rest}
-    >
     <Flex
       gap="16px"
       direction="column"
@@ -281,17 +154,10 @@ export default function RecipeEdit(props) {
           onMouseUp={() => {
             buttonOnMouseUp();
           }}
-          
-          {...getOverrideProps(overrides, "Button")}
-          /*
-          onMouseUp={() => {
-            buttonOnMouseUp();
-          }}
-          {...getOverrideProps(overrides, "Button")}
           onMouseDown={() => {
             buttonOnMouseDown();
           }}
-          */
+          {...getOverrideProps(overrides, "Button")}
         ></Button>
         <Flex
           gap="16px"
@@ -316,52 +182,33 @@ export default function RecipeEdit(props) {
             isDisabled={false}
             labelHidden={false}
             variation="default"
-            isRequired={true}
-            isReadOnly={false}
-            value={name}
-            onChange={(e) => {
-              let { value } = e.target;
-              if (onChange) {
-                const modelFields = {
-                  name: value,
-                  description,
-                  image,
-                };
-                const result = onChange(modelFields);
-                value = result?.name ?? value;
-              }
-              if (errors.name?.hasError) {
-                runValidationTasks("name", value);
-              }
-              setName(value);
+            value={textFieldThreeEightNineThreeEightNineThreeValue}
+            onChange={(event) => {
+              setTextFieldThreeEightNineThreeEightNineThreeValue(
+                event.target.value
+              );
             }}
-            onBlur={() => runValidationTasks("name", name)}
-            errorMessage={errors.name?.errorMessage}
-            hasError={errors.name?.hasError}
-            {...getOverrideProps(overrides, "name")}
+            {...getOverrideProps(overrides, "TextField3893893")}
           ></TextField>
-          {/* <Field> REPLACES ORIGINAL Image TextField  //MAH */}
-          <Field
-
-              label={"Image"}
-              isRequired={false}
-              isReadOnly={false}
-              >
-              <StorageManager
-              onUploadSuccess={({ key }) => {
-                setImage(
-                  key
-                );
-              }}
-              processFile={processFile}
-              accessLevel={"public"}
-              acceptedFileTypes={[]}
-              isResumable={false}
-              showThumbnails={true}
-              maxFileCount={1}
-              {...getOverrideProps(overrides, "image")}
-              ></StorageManager>
-              </Field>
+          <TextField
+            width="unset"
+            height="unset"
+            label="Image"
+            placeholder="image_storeage_widget"
+            shrink="0"
+            alignSelf="stretch"
+            size="default"
+            isDisabled={false}
+            labelHidden={false}
+            variation="default"
+            value={textFieldThreeEightNineThreeEightNineFourValue}
+            onChange={(event) => {
+              setTextFieldThreeEightNineThreeEightNineFourValue(
+                event.target.value
+              );
+            }}
+            {...getOverrideProps(overrides, "TextField3893894")}
+          ></TextField>
           <TextAreaField
             width="272px"
             height="188px"
@@ -374,34 +221,14 @@ export default function RecipeEdit(props) {
             isDisabled={false}
             labelHidden={false}
             variation="default"
-            isRequired={false}
-            isReadOnly={false}
-            value={description}
-            onChange={(e) => {
-              let { value } = e.target;
-              if (onChange) {
-                const modelFields = {
-                  name,
-                  description: value,
-                  image,
-                };
-                const result = onChange(modelFields);
-                value = result?.description ?? value;
-              }
-              if (errors.description?.hasError) {
-                runValidationTasks("description", value);
-              }
-              setDescription(value);
+            value={textAreaFieldValue}
+            onChange={(event) => {
+              setTextAreaFieldValue(event.target.value);
             }}
-            onBlur={() => runValidationTasks("description", description)}
-            errorMessage={errors.description?.errorMessage}
-            hasError={errors.description?.hasError}
-            {...getOverrideProps(overrides, "description")}
+            {...getOverrideProps(overrides, "TextAreaField")}
           ></TextAreaField>
         </Flex>
-
       </Flex>
     </Flex>
-    </Grid>
   );
-}//}
+}

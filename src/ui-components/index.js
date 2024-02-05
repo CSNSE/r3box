@@ -6,6 +6,7 @@
 
 export { default as EditRecipe } from "./EditRecipe";
 export { default as MyIcon } from "./MyIcon";
+export { default as NEWHOME } from "./NEWHOME";
 export { default as Nav } from "./Nav";
 export { default as RecipeCard } from "./RecipeCard";
 export { default as RecipeCardCollection } from "./RecipeCardCollection";

@@ -27,7 +27,6 @@ export default function RecipeCard(props) {
         },
       },
     });
-    trashOnMouseUp();
   };
   const trashOnMouseUp = useNavigateAction({ type: "url", url: "/" });
   const pencilOnClick = useNavigateAction({
@@ -164,9 +163,9 @@ export default function RecipeCard(props) {
           onClick={() => {
             trashOnClick();
           }}
-          // onMouseUp={() => {
-          //   trashOnMouseUp();
-          // }}
+          onMouseUp={() => {
+            trashOnMouseUp();
+          }}
           {...getOverrideProps(overrides, "trash")}
         >
           <MyIcon

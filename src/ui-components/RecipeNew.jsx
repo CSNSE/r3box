@@ -7,7 +7,7 @@
 /* eslint-disable */
 import * as React from "react";
 import { useState } from "react";
-import { getOverrideProps, useNavigateAction, processFile } from "./utils"; //MAH processFile
+import { getOverrideProps, useNavigateAction } from "./utils";
 import { generateClient } from "aws-amplify/api";
 import { createRecipe } from "../graphql/mutations";
 import {
@@ -19,8 +19,6 @@ import {
   TextField,
   View,
 } from "@aws-amplify/ui-react";
-import { Field } from "@aws-amplify/ui-react/internal";  //MAH add!
-import { StorageManager } from "@aws-amplify/ui-react-storage"; //MAH add!
 const client = generateClient();
 export default function RecipeNew(props) {
   const { nrcp, overrides, ...rest } = props;
@@ -33,27 +31,21 @@ export default function RecipeNew(props) {
     textFieldThreeEightSixTwoFourThreeOneValue,
     setTextFieldThreeEightSixTwoFourThreeOneValue,
   ] = useState("");
-  //MAH setting image name!
-  const [
-    imageName,
-    setImageName,
-  ] = useState("");
   const vectorOnClick = useNavigateAction({ type: "url", url: "\\" });
-  const buttonOnMouseUp = useNavigateAction({ type: "url", url: "/" });
-  const buttonOnMouseDown = async () => {
+  const buttonOnClick = async () => {
     await client.graphql({
       query: createRecipe.replaceAll("__typename", ""),
       variables: {
         input: {
           name: textFieldThreeEightSixTwoFourTwoNineValue,
-          description: textFieldThreeEightSixTwoFourThreeOneValue,
-          image: imageName  //MAH image name!
+          description: textAreaFieldValue,
+          image: textFieldThreeEightSixTwoFourThreeOneValue,
         },
       },
     });
-
   };
-    return (
+  const buttonOnMouseOut = useNavigateAction({ type: "url", url: "/" });
+  return (
     <Flex
       gap="16px"
       direction="column"
@@ -165,15 +157,11 @@ export default function RecipeNew(props) {
           onClick={() => {
             buttonOnClick();
           }}
-          onMouseDown={() => {
-            buttonOnMouseDown();
+          onMouseOut={() => {
+            buttonOnMouseOut();
           }}
-        onMouseUp={() => {
-          buttonOnMouseUp();
-        }}
-        {...getOverrideProps(overrides, "Button")}
-      ></Button>
-
+          {...getOverrideProps(overrides, "Button")}
+        ></Button>
         <Flex
           gap="16px"
           direction="column"
@@ -203,28 +191,23 @@ export default function RecipeNew(props) {
             }}
             {...getOverrideProps(overrides, "TextField3862429")}
           ></TextField>
-          {/* <Field> REPLACES ORIGINAL Image TextField  //MAH */}
-            <Field
-
-            label={"Image"}
-            isRequired={false}
-            isReadOnly={false}
-            >
-            <StorageManager
-            onUploadSuccess={({ key }) => {
-              setImageName(
-                key
-              );
+          <TextField
+            width="unset"
+            height="unset"
+            label="Image"
+            placeholder="image_storeage_widget"
+            shrink="0"
+            alignSelf="stretch"
+            size="default"
+            isDisabled={false}
+            labelHidden={false}
+            variation="default"
+            value={textFieldThreeEightSixTwoFourThreeOneValue}
+            onChange={(event) => {
+              setTextFieldThreeEightSixTwoFourThreeOneValue(event.target.value);
             }}
-            processFile={processFile}
-            accessLevel={"public"}
-            acceptedFileTypes={[]}
-            isResumable={false}
-            showThumbnails={true}
-            maxFileCount={1}
-            {...getOverrideProps(overrides, "image")}
-            ></StorageManager>
-            </Field>
+            {...getOverrideProps(overrides, "TextField3862431")}
+          ></TextField>
           <TextAreaField
             width="272px"
             height="188px"
@@ -237,9 +220,9 @@ export default function RecipeNew(props) {
             isDisabled={false}
             labelHidden={false}
             variation="default"
-            value={textFieldThreeEightSixTwoFourThreeOneValue}
+            value={textAreaFieldValue}
             onChange={(event) => {
-              setTextFieldThreeEightSixTwoFourThreeOneValue(event.target.value);
+              setTextAreaFieldValue(event.target.value);
             }}
             {...getOverrideProps(overrides, "TextAreaField")}
           ></TextAreaField>

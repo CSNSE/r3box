@@ -12,9 +12,9 @@ import { generateClient } from "aws-amplify/api";
 import { getRecipe } from "../graphql/queries";
 import { updateRecipe } from "../graphql/mutations";
 const client = generateClient();
-export default function RecipeEdit(props) {
+export default function RecipeUpdateForm(props) {
   const {
-    idProp, //remove id:
+    id: idProp,
     recipe: recipeModelProp,
     onSuccess,
     onError,
@@ -24,7 +24,6 @@ export default function RecipeEdit(props) {
     overrides,
     ...rest
   } = props;
-  console.log("thing update got it: " + {idProp}); //added
   const initialValues = {
     name: "",
     description: "",
