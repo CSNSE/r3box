@@ -24,7 +24,6 @@ export declare type NavOverridesProps = {
     Vector?: PrimitiveOverrideProps<IconProps>;
     "Frame 321"?: PrimitiveOverrideProps<FlexProps>;
     logo?: PrimitiveOverrideProps<ViewProps>;
-    Union?: PrimitiveOverrideProps<IconProps>;
     Box?: PrimitiveOverrideProps<TextProps>;
     image?: PrimitiveOverrideProps<ImageProps>;
 } & EscapeHatchProps;
