@@ -35,3 +35,39 @@ export const listRecipes = /* GraphQL */ `
     }
   }
 `;
+
+export const getRequest = /* GraphQL */ `
+  query GetRequest($id: ID!) {
+    getRequest(id: $id) {
+      id
+      name
+      recipient
+      description
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+
+export const listRequests = /* GraphQL */ `
+  query ListRequests(
+    $filter: ModelRecipeFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listRecipes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        recipient
+        description
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;

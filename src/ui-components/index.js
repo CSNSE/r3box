@@ -4,6 +4,7 @@
  * Any changes to this file will be overwritten when running amplify pull. *
  **************************************************************************/
 
+export { default as EDITREQUEST } from "./EDITREQUEST";
 export { default as EditRecipe } from "./EditRecipe";
 export { default as MyIcon } from "./MyIcon";
 export { default as NEWHOME } from "./NEWHOME";
@@ -15,4 +16,8 @@ export { default as RecipeCreateForm } from "./RecipeCreateForm";
 export { default as RecipeEdit } from "./RecipeEdit";
 export { default as RecipeNew } from "./RecipeNew";
 export { default as RecipeUpdateForm } from "./RecipeUpdateForm";
+export { default as RequestCard } from "./RequestCard";
+export { default as RequestCardCollection } from "./RequestCardCollection";
+export { default as RequestCreateForm } from "./RequestCreateForm";
+export { default as RequestUpdateForm } from "./RequestUpdateForm";
 export { default as studioTheme } from "./studioTheme";

@@ -7,9 +7,9 @@
 /* eslint-disable */
 import * as React from "react";
 import { getOverrideProps, useNavigateAction } from "./utils";
-import { Button, Image, Text, View } from "@aws-amplify/ui-react";
+import { Button, Icon, Image, Text, View } from "@aws-amplify/ui-react";
 export default function NEWHOME(props) {
-  const { recipe, overrides, ...rest } = props;
+  const { recipe, rectangle21, request, overrides, ...rest } = props;
   const buttonFourZeroZeroThreeOneOneOneThreeOnClick = useNavigateAction({
     type: "url",
     url: "/req",
@@ -33,21 +33,26 @@ export default function NEWHOME(props) {
       {...getOverrideProps(overrides, "NEWHOME")}
       {...rest}
     >
-      <View
+      <Icon
         width="369px"
         height="440px"
+        viewBox={{ minX: 0, minY: 0, width: 369, height: 440 }}
+        paths={[
+          {
+            d: "M0 18C0 8.05888 8.05887 0 18 0L351 0C360.941 0 369 8.05887 369 18L369 422C369 431.941 360.941 440 351 440L18 440C8.05888 440 0 431.941 0 422L0 18Z",
+            fill: "rgba(255,255,255,0.55)",
+            fillRule: "nonzero",
+          },
+        ]}
         display="block"
         gap="unset"
         alignItems="unset"
         justifyContent="unset"
         position="absolute"
-        top="470px"
-        left="10px"
-        borderRadius="18px"
-        padding="0px 0px 0px 0px"
-        backgroundColor="rgba(255,255,255,0.55)"
-        {...getOverrideProps(overrides, "Rectangle 21")}
-      ></View>
+        top="475px"
+        left="11px"
+        {...getOverrideProps(overrides, "Rectangle 26")}
+      ></Icon>
       <View
         width="341px"
         height="69px"

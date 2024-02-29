@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { ButtonProps, ImageProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
+import { ButtonProps, IconProps, ImageProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
 } | null;
@@ -19,7 +19,7 @@ export declare type Variant = {
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type NEWHOMEOverridesProps = {
     NEWHOME?: PrimitiveOverrideProps<ViewProps>;
-    "Rectangle 21"?: PrimitiveOverrideProps<ViewProps>;
+    "Rectangle 26"?: PrimitiveOverrideProps<IconProps>;
     "Rectangle 25"?: PrimitiveOverrideProps<ViewProps>;
     "Controls / Buttons: Icon"?: PrimitiveOverrideProps<ViewProps>;
     "11/12/23"?: PrimitiveOverrideProps<TextProps>;
@@ -32,6 +32,8 @@ export declare type NEWHOMEOverridesProps = {
 } & EscapeHatchProps;
 export declare type NEWHOMEProps = React.PropsWithChildren<Partial<ViewProps> & {
     recipe?: any;
+    rectangle21?: React.ReactNode;
+    request?: any;
 } & {
     overrides?: NEWHOMEOverridesProps | undefined | null;
 }>;
