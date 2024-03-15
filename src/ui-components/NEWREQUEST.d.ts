@@ -33,6 +33,8 @@ export declare type NEWREQUESTOverridesProps = {
     "Who is this request for?"?: PrimitiveOverrideProps<TextProps>;
 } & EscapeHatchProps;
 export declare type NEWREQUESTProps = React.PropsWithChildren<Partial<ViewProps> & {
+    nrcp?: any;
+} & {
     overrides?: NEWREQUESTOverridesProps | undefined | null;
 }>;
 export default function NEWREQUEST(props: NEWREQUESTProps): React.ReactElement;

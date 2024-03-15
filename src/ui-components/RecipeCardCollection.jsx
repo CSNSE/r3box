@@ -11,6 +11,7 @@ import RecipeCard from "./RecipeCard";
 import { getOverrideProps } from "./utils";
 import { Collection, Pagination, Placeholder } from "@aws-amplify/ui-react";
 import { generateClient } from "aws-amplify/api";
+import { getUrl } from "@aws-amplify/storage";
 const nextToken = {};
 const apiCache = {};
 const client = generateClient();
@@ -61,6 +62,19 @@ export default function RecipeCardCollection(props) {
       ).data.listRecipes;
       newCache.push(...result.items);
       newNext = result.nextToken;
+      /* MAH lines 66-78 be sure to update variable names to match your model! */
+      const recipesFromAPI = result.items
+      await Promise.all(
+        recipesFromAPI.map(async (recipe) => {
+          if (recipe.image) {
+            const getUrlResult = await getUrl({
+              key: recipe.image,
+            });
+            recipe.image=getUrlResult.url;
+          }
+          return recipe;
+          })
+        );
     }
     const cacheSlice = isPaginated
       ? newCache.slice((page - 1) * pageSize, page * pageSize)

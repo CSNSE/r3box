@@ -4,7 +4,7 @@
  * Any changes to this file will be overwritten when running amplify pull. *
  **************************************************************************/
 
-/* eslint-dicsable */
+/* eslint-disable */
 import * as React from "react";
 import { generateClient } from "aws-amplify/api";
 import { deleteRequest } from "../graphql/mutations";
