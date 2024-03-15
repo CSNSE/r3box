@@ -5,13 +5,41 @@
  **************************************************************************/
 
 /* eslint-disable */
+
 import * as React from "react";
+import { useState } from "react";
 import { getOverrideProps, useNavigateAction } from "./utils";
+import { generateClient } from "aws-amplify/api";
+import { createRequest } from "../graphql/mutations";
 import { Button, Icon, Text, TextField, View } from "@aws-amplify/ui-react";
+const client = generateClient();
 export default function NEWREQUEST(props) {
   const { nrcp, overrides, ...rest } = props;
+  const [
+    textFieldFourZeroFourFourOneTwoOneTwoValue,
+    setTextFieldFourZeroFourFourOneTwoOneTwoValue,
+  ] = useState("");
+  const [
+    textFieldFourZeroFourFourOneTwoTwoOneValue,
+    setTextFieldFourZeroFourFourOneTwoTwoOneValue,
+  ] = useState("");
+  const [
+    textFieldFourZeroFourFourOneTwoFourThreeValue,
+    setTextFieldFourZeroFourFourOneTwoFourThreeValue,
+  ] = useState("");
   const vectorOnClick = useNavigateAction({ type: "url", url: "/" });
-  const buttonOnClick = useNavigateAction({ type: "url", url: "/" });
+  const buttonOnClick = async () => {
+    await client.graphql({
+      query: createRequest.replaceAll("__typename", ""),
+      variables: {
+        input: {
+          name: textFieldFourZeroFourFourOneTwoOneTwoValue,
+          description: textFieldFourZeroFourFourOneTwoTwoOneValue,
+          recipient: textFieldFourZeroFourFourOneTwoFourThreeValue,
+        },
+      },
+    });
+  };
   return (
     <View
       width="320px"
@@ -67,6 +95,10 @@ export default function NEWREQUEST(props) {
         isDisabled={false}
         labelHidden={false}
         variation="default"
+        value={textFieldFourZeroFourFourOneTwoOneTwoValue}
+        onChange={(event) => {
+          setTextFieldFourZeroFourFourOneTwoOneTwoValue(event.target.value);
+        }}
         {...getOverrideProps(overrides, "TextField40441212")}
       ></TextField>
       <TextField
@@ -80,6 +112,10 @@ export default function NEWREQUEST(props) {
         isDisabled={false}
         labelHidden={false}
         variation="default"
+        value={textFieldFourZeroFourFourOneTwoTwoOneValue}
+        onChange={(event) => {
+          setTextFieldFourZeroFourFourOneTwoTwoOneValue(event.target.value);
+        }}
         {...getOverrideProps(overrides, "TextField40441221")}
       ></TextField>
       <TextField
@@ -93,6 +129,10 @@ export default function NEWREQUEST(props) {
         isDisabled={false}
         labelHidden={false}
         variation="default"
+        value={textFieldFourZeroFourFourOneTwoFourThreeValue}
+        onChange={(event) => {
+          setTextFieldFourZeroFourFourOneTwoFourThreeValue(event.target.value);
+        }}
         {...getOverrideProps(overrides, "TextField40441243")}
       ></TextField>
       <View

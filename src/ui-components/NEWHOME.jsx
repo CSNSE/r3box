@@ -7,14 +7,15 @@
 /* eslint-disable */
 import * as React from "react";
 import { getOverrideProps, useNavigateAction } from "./utils";
-import { Button, Icon, Image, Text, View } from "@aws-amplify/ui-react";
+
+import { Button, Image, Text, View } from "@aws-amplify/ui-react";
 export default function NEWHOME(props) {
-  const { recipe, rectangle21, request, overrides, ...rest } = props;
-  const buttonFourZeroZeroThreeOneOneOneThreeOnClick = useNavigateAction({
+  const { overrides, ...rest } = props;
+  const buttonFourZeroZeroThreeOneOneOneSevenOnClick = useNavigateAction({
     type: "url",
     url: "/req",
   });
-  const buttonFourZeroZeroThreeOneOneOneSevenOnClick = useNavigateAction({
+  const buttonfourzerozerothreeoneoneonethreeOnClick = useNavigateAction({
     type: "url",
     url: "/col",
   });
@@ -29,30 +30,55 @@ export default function NEWHOME(props) {
       overflow="hidden"
       position="relative"
       padding="0px 0px 0px 0px"
-      src="..\public\bckgrnd.png"
+      backgroundColor="rgba(230,221,212,1)"
       {...getOverrideProps(overrides, "NEWHOME")}
       {...rest}
     >
-      <Icon
-        width="369px"
-        height="440px"
-        viewBox={{ minX: 0, minY: 0, width: 369, height: 440 }}
-        paths={[
-          {
-            d: "M0 18C0 8.05888 8.05887 0 18 0L351 0C360.941 0 369 8.05887 369 18L369 422C369 431.941 360.941 440 351 440L18 440C8.05888 440 0 431.941 0 422L0 18Z",
-            fill: "rgba(255,255,255,0.55)",
-            fillRule: "nonzero",
-          },
-        ]}
+      <Image
+        width="282px"
+        height="276px"
         display="block"
         gap="unset"
         alignItems="unset"
         justifyContent="unset"
         position="absolute"
-        top="475px"
-        left="11px"
-        {...getOverrideProps(overrides, "Rectangle 26")}
-      ></Icon>
+        top="127px"
+        left="-16.16px"
+        transformOrigin="top left"
+        transform="rotate(23.9deg)"
+        padding="0px 0px 0px 0px"
+        objectFit="cover"
+        {...getOverrideProps(overrides, "DALL\u00B7E 2023-12-19 09.58 1")}
+      ></Image>
+      <Image
+        width="314px"
+        height="307px"
+        display="block"
+        gap="unset"
+        alignItems="unset"
+        justifyContent="unset"
+        position="absolute"
+        top="365px"
+        left="161px"
+        padding="0px 0px 0px 0px"
+        objectFit="cover"
+        {...getOverrideProps(overrides, "DALL\u00B7E 2023-12-19 09.57 1")}
+      ></Image>
+      <View
+        width="369px"
+        height="440px"
+        display="block"
+        gap="unset"
+        alignItems="unset"
+        justifyContent="unset"
+        position="absolute"
+        top="470px"
+        left="10px"
+        borderRadius="18px"
+        padding="0px 0px 0px 0px"
+        backgroundColor="rgba(255,255,255,0.55)"
+        {...getOverrideProps(overrides, "Rectangle 21")}
+      ></View>
       <View
         width="341px"
         height="69px"
@@ -95,6 +121,20 @@ export default function NEWHOME(props) {
         children="11/12/23"
         {...getOverrideProps(overrides, "11/12/23")}
       ></Text>
+      <Image
+        width="162px"
+        height="179px"
+        display="block"
+        gap="unset"
+        alignItems="unset"
+        justifyContent="unset"
+        position="absolute"
+        top="147px"
+        left="217px"
+        padding="0px 0px 0px 0px"
+        objectFit="cover"
+        {...getOverrideProps(overrides, "DALL\u00B7E 2023-12-19 10.00 1")}
+      ></Image>
       <Text
         fontFamily="FreightText Pro"
         fontSize="32px"
@@ -174,7 +214,7 @@ export default function NEWHOME(props) {
         variation="default"
         children="Request"
         onClick={() => {
-          buttonFourZeroZeroThreeOneOneOneThreeOnClick();
+          buttonfourzerozerothreeoneoneonethreeOnClick();
         }}
         {...getOverrideProps(overrides, "Button40031113")}
       ></Button>
@@ -195,21 +235,6 @@ export default function NEWHOME(props) {
         }}
         {...getOverrideProps(overrides, "Button40031117")}
       ></Button>
-      <Image
-        width="425px"
-        height="844px"
-        display="block"
-        gap="unset"
-        alignItems="unset"
-        justifyContent="unset"
-        position="absolute"
-        top="23px"
-        left="410px"
-        padding="0px 0px 0px 0px"
-        objectFit="cover"
-        src={recipe?.image}
-        {...getOverrideProps(overrides, "Screen Shot 2024-02-06 at 11.22 1")}
-      ></Image>
     </View>
   );
 }
