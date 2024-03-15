@@ -13,11 +13,11 @@ export default function NEWHOME(props) {
   const { overrides, ...rest } = props;
   const buttonFourZeroZeroThreeOneOneOneSevenOnClick = useNavigateAction({
     type: "url",
-    url: "/req",
+    url: "/col",
   });
   const buttonfourzerozerothreeoneoneonethreeOnClick = useNavigateAction({
     type: "url",
-    url: "/col",
+    url: "/req",
   });
   return (
     <View
