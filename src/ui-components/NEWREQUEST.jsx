@@ -9,7 +9,7 @@ import * as React from "react";
 import { getOverrideProps, useNavigateAction } from "./utils";
 import { Button, Icon, Text, TextField, View } from "@aws-amplify/ui-react";
 export default function NEWREQUEST(props) {
-  const { overrides, ...rest } = props;
+  const { nrcp, overrides, ...rest } = props;
   const vectorOnClick = useNavigateAction({ type: "url", url: "/" });
   const buttonOnClick = useNavigateAction({ type: "url", url: "/" });
   return (
