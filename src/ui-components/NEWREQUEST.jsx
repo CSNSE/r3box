@@ -5,13 +5,11 @@
  **************************************************************************/
 
 /* eslint-disable */
-
 import * as React from "react";
 import { useState } from "react";
-import { getOverrideProps, useNavigateAction, processFile } from "./utils";
+import { getOverrideProps, useNavigateAction } from "./utils";
 import { generateClient } from "aws-amplify/api";
 import { createRequest } from "../graphql/mutations";
-
 import { Button, Icon, Text, TextField, View } from "@aws-amplify/ui-react";
 const client = generateClient();
 export default function NEWREQUEST(props) {
@@ -28,9 +26,9 @@ export default function NEWREQUEST(props) {
     textFieldFourZeroFourFourOneTwoFourThreeValue,
     setTextFieldFourZeroFourFourOneTwoFourThreeValue,
   ] = useState("");
-  
   const vectorOnClick = useNavigateAction({ type: "url", url: "/" });
-  const buttonOnClick = async () => {
+  const buttonOnClick = useNavigateAction({ type: "url", url: "/" });
+  const buttonOnMouseDown = async () => {
     await client.graphql({
       query: createRequest.replaceAll("__typename", ""),
       variables: {
@@ -40,7 +38,7 @@ export default function NEWREQUEST(props) {
           recipient: textFieldFourZeroFourFourOneTwoFourThreeValue,
         },
       },
-  });
+    });
   };
   return (
     <View
@@ -198,6 +196,9 @@ export default function NEWREQUEST(props) {
         onClick={() => {
           buttonOnClick();
         }}
+        onMouseDown={() => {
+          buttonOnMouseDown();
+        }}
         {...getOverrideProps(overrides, "Button")}
       ></Button>
       <Text
@@ -223,7 +224,6 @@ export default function NEWREQUEST(props) {
         {...getOverrideProps(overrides, "Request a Recipe")}
       ></Text>
       <Text
-      
         fontFamily="Inter"
         fontSize="14px"
         fontWeight="400"
