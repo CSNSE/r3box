@@ -7,7 +7,7 @@
 /* eslint-disable */
 import * as React from "react";
 import { getOverrideProps, useNavigateAction } from "./utils";
-
+import bckgrn from "./bckgrnd.png"
 import { Button, Image, Text, View } from "@aws-amplify/ui-react";
 export default function NEWHOME(props) {
   const { overrides, ...rest } = props;
@@ -77,7 +77,7 @@ export default function NEWHOME(props) {
         borderRadius="18px"
         padding="0px 0px 0px 0px"
         backgroundColor="rgba(255,255,255,0.55)"
-        {...getOverrideProps(overrides, "Rectangle 21")}
+        {...getOverrideProps(overrides, bckgrn)}
       ></View>
       <View
         width="341px"
@@ -133,7 +133,7 @@ export default function NEWHOME(props) {
         left="217px"
         padding="0px 0px 0px 0px"
         objectFit="cover"
-        {...getOverrideProps(overrides, "DALL\u00B7E 2023-12-19 10.00 1")}
+        {...getOverrideProps(overrides, bckgrn)}
       ></Image>
       <Text
         fontFamily="FreightText Pro"
