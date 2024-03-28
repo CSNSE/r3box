@@ -33,7 +33,6 @@ export declare type RequestCardOverridesProps = {
     MyIcon40711336?: MyIconProps;
 } & EscapeHatchProps;
 export declare type RequestCardProps = React.PropsWithChildren<Partial<FlexProps> & {
-    Request?: String;
     request?: any;
 } & {
     overrides?: RequestCardOverridesProps | undefined | null;

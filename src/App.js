@@ -21,7 +21,7 @@ class App extends Component {
 <Route exact path='/new' element= {<NewRecipe/>} />
 <Route exact path='/cr' element= {<div><Nav/><RecipeCreateForm/></div>} /> 
 <Route exact path='/up' element= {<div><Nav/><RecipeUpdateForm/></div>} />
-<Route exact path='/edit/:cid' element= {<div><Nav/><EditRecipe/></div>} />
+<Route exact path='/edit/:cid' element= {<div><EditRecipe/></div>} />
 </Routes>
 </header></div>
 

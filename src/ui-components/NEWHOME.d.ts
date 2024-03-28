@@ -32,8 +32,8 @@ export declare type NEWHOMEOverridesProps = {
 } & EscapeHatchProps;
 export declare type NEWHOMEProps = React.PropsWithChildren<Partial<ViewProps> & {
     recipe?: any;
-    rectangle21?: React.ReactNode;
     request?: any;
+    rectangle21?: React.ReactNode;
 } & {
     overrides?: NEWHOMEOverridesProps | undefined | null;
 }>;
